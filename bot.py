@@ -37,7 +37,7 @@ def accounts_command(message: types.Message):
         ))
     bot.send_message(
         chat_id=message.chat.id,
-        text='Choose an account',
+        text='📖Choose an account',
         reply_markup=markup
     )
 
@@ -48,7 +48,7 @@ def add_account_command(message: types.Message):
         return
     send = bot.send_message(
         chat_id=message.chat.id,
-        text='Send the name that you want to see on the button, like "Vasya Pupkin"\n\n'
+        text='🆕Send the name that you want to see on the button, like "Vasya Pupkin"\n\n'
              'PS. Without quotes, and make names unique!\n'
              'Write "cancel" to cancel the addition')
     bot.register_next_step_handler(send, get_name_step)
@@ -156,7 +156,7 @@ def delete_account_command(message: types.Message):
         )
     bot.send_message(
         chat_id=message.chat.id,
-        text='Select an account to delete',
+        text='🗑️Select an account to delete',
         reply_markup=markup
     )
 

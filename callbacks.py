@@ -17,22 +17,21 @@ def account_balance(bot: TeleBot, callback: types.CallbackQuery):
     mono = MonoRequest(account.get('token'),
                        account.get('card_type'))
     mono_response = mono.get_balance_from_mono()
+    text = None
     if mono_response.balance is None:
-        bot.edit_message_text(
-            chat_id=callback.message.chat.id,
-            message_id=callback.message.id,
-            text=f'Something went wrong, couldn\'t get balance from Monobank!\n\n'
-                 f'Error: {mono_response.error}\n'
-                 f'Status code: {mono_response.status_code}\n\n'
-                 f'Maybe it\'s because there is an air raid alert in your area.'
-        )
-        return
+        text = f'Something went wrong, couldn\'t get balance from Monobank!\n\n' \
+               f'Error: {mono_response.error}\n' \
+               f'Status code: {mono_response.status_code}'
+        if int(str(abs(mono_response.status_code))[0]) == 5:
+            text += f'\n\nMaybe it\'s because there is an air raid alert in your area.'
+    else:
+        text = f"Name: {account.get('name')}\n" \
+               f"Card type: {account.get('card_type')}\n" \
+               f"Баланс: {mono_response.balance}₴"
     bot.edit_message_text(
         chat_id=callback.message.chat.id,
         message_id=callback.message.id,
-        text=f"Name: {account.get('name')}\n"
-             f"Card type: {account.get('card_type')}\n"
-             f"Баланс: {mono_response.balance}₴"
+        text=text
     )
 
 
