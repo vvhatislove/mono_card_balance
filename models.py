@@ -8,7 +8,7 @@ class MyMongoDB:
             self,
             db_name: str = settings.DB_NAME,
             collection_name: str = settings.DEFAULT_COLLECTION_NAME,
-            host: str = 'localhost',
+            host: str = settings.DB_HOST,
             port: int = 27017
     ):
         self.connect = pymongo.MongoClient(f'mongodb://{host}:{port}/', )
